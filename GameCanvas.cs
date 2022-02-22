@@ -1,63 +1,120 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Battleship_game
 {
     public class GameCanvas
     {
-        const int x_GridSize = 10;
-        const int y_GridSize = 10;
-        const int tableWidth2= 40;
-        const int width = (tableWidth2 - x_GridSize) / x_GridSize;
+        const int gridSize = 10;
+        const int tableWidth = 40;
+        const int width = (tableWidth - gridSize) / gridSize;
 
-        static void PrintRow(params string[] columns)
+        static void PrintFirstRow(params string[] columns)
         {
             string row = string.Empty;
 
             foreach (string column in columns)
             {
-                row += AlignCentre2(column, width);
+                row += column.PadLeft(width);
+                //row += AlignCentre2(column, width);
             }
 
             Console.WriteLine(row);
+
         }
 
-        public void createBattleshipGameCanvas()
+        private string[,] gridData = new string[,]
         {
-            PrintLine();
-            PrintRow("", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+            { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" }
+        };
 
-            for (int y = 0; y < y_GridSize; y++)
+
+
+
+        //public string[,] gridData { get; set; } = {
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
+        //    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" }
+        //};
+
+
+        public void checkForHit(string gridPoints)
+        {
+
+            // convert gridpoints to indices (row, column)
+            int row = 0;
+            
+            int.TryParse(gridPoints.Substring(1), out int col);
+
+            // switch case a, b, c
+            switch (gridPoints[0])
             {
-                Console.Write($"{ y + 1}".PadLeft(width));
+                // if case a: row = 0, col = number followed
+                case 'a':
+                    row = 0;
+                    // grid point [row,col] = "X";
+                    Console.WriteLine('a');
+                    break;
 
-                for (int x = 0; x < x_GridSize; x++)
+                default:
+                    Console.WriteLine("No match found");
+                    break;
+            }
+
+            gridData[row, col] = "X";
+
+            drawGameCanvas();
+        }
+
+
+
+        public void drawGameCanvas()
+        {
+         
+            PrintLine();
+            PrintFirstRow("", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J");
+
+            for (int row = 0; row < gridData.GetLength(0); row++)
+            {
+                Console.Write($"{row+1}".PadLeft(width));
+
+                for (int col = 0; col < gridData.GetLength(1); col++)
                 {
-                    string row = AlignCentre2("-", width);
-                    Console.Write(row);                  
+                    string character = gridData[row, col].PadLeft(width);
+                    Console.Write(character);
+                 
                 }
                 Console.WriteLine();
             }
+
+
             PrintLine();
         }
 
-        private static string AlignCentre2(string text, int width)
-        {
-            text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
 
-            if (string.IsNullOrEmpty(text))
-            {
-                return new string(' ', width);
-            }
-            else
-            {
-                return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
-            }
-        }
         static void PrintLine()
         {
-            Console.WriteLine(new string('-', tableWidth2));
+            Console.WriteLine(new string('-', tableWidth));
         }
     }
 }
+
+//https://stackoverflow.com/questions/314466/generating-an-array-of-letters-in-the-alphabet/5271891

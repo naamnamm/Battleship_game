@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Battleship_game
 {
@@ -6,52 +8,77 @@ namespace Battleship_game
     {
         static void Main(string[] args)
         {
-            int userTurn = 10;
+            Player player = new Player();
             int battleShip_lives = 5;
-     
-            //while guess is more than 0 and game is not over
-            while (userTurn > 0 && battleShip_lives > 0)
+
+            //while user health is more than 0 and game is not over
+            do
             {
-                //execute this
+                //1. draw canvas
                 GameCanvas gameCanvas = new GameCanvas();
-                gameCanvas.createBattleshipGameCanvas();
+                gameCanvas.drawGameCanvas();
 
-                Console.WriteLine("User turn remaining: {0}", userTurn);
+                Console.WriteLine("User turn remaining: {0}", player.Health);
                 Console.WriteLine("Battleship lives remaining: {0}", battleShip_lives);
-                Console.WriteLine("Please enter your next move:");
+                Console.WriteLine("Please enter your next move (i.e. a2 or f8):");
 
-                //Todo: randomly place the ship
+                //2. randomly place the ship
 
 
-                bool inputComplete = false;
-                while (!inputComplete) //while this is true
-                {
-                    try
-                    {
-                        //get user input && determine if the input is valid
-                        InputConverter inputConverter = new InputConverter();
-                        int num1 = inputConverter.convertInput(Console.ReadLine());
-                        inputComplete = true;
+                //3. determine if user input is valid
+                InputValidation inputConverter = new InputValidation();
+                string userInput = inputConverter.validateInput(Console.ReadLine());
+                gameCanvas.checkForHit(userInput);
+                player.Health--;
 
-                        //user input --1
-                        userTurn--;
+                //bool isInputComplete = false;
+                //while (!isInputComplete) //while this is true
+                //{
+                //    try
+                //    {
+                //        //get user input && determine if the input is valid
+                //        InputValidation inputConverter = new InputValidation();
+                //        string userInput = inputConverter.validateInput(Console.ReadLine());
 
-                    } catch (Exception ex)
-                    {
-                        Console.WriteLine(ex);
-                        Console.WriteLine(ex.Message);
-                    }
-                }
+                //        isInputComplete = true;
 
-                //Todo: determine if the ship has been hit.
+                //        // call the checkHit fn
+                //        gameCanvas.checkForHit(userInput);
+                //        // call the render grid fn
 
-                
-            }
+
+
+                //        //user input --1
+                //        player.Health--;
+
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Console.WriteLine(ex);
+                //        Console.WriteLine(ex.Message);
+                //    }
+                //}
+
+                Console.Clear();
+
+                //4. determine if the ship has been hit 
+
+            } while (player.Health > 0 && battleShip_lives > 0);
 
         }
 
+        private static bool isUserInputValid(string argTextInput)
+        {
+            
+            //check to see if input is valid
+            string pattern = "^[a-j]([1-9]|0[1-9]|10)$";
+            Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match m = r.Match(argTextInput);
 
+            //if not, throw error
+            if (!m.Success) throw new ArgumentException("please enter valid input");
 
-
+            return true;
+        }
     }
 }
