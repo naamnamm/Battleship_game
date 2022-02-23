@@ -23,7 +23,7 @@ namespace Battleship_game
                 Console.WriteLine("Please enter your next move (i.e. a2 or f8):");
 
                 //2. randomly place the ship
-
+                gameCanvas.placingShipOnBoard();
 
                 //3. determine if user input is valid
                 InputValidation inputConverter = new InputValidation();
