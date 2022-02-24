@@ -6,6 +6,15 @@ namespace Battleship_game
 {
     class Ship
     {
+        public int Length { get; }
+        public int Lives { get; set; }
+
+        public Ship()
+        {
+            Length = 5;
+            Lives = 5;
+        }
+
         public int[] getShipHead()
         {
             //random [row,col]

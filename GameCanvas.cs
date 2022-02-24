@@ -53,8 +53,10 @@ namespace Battleship_game
                 // if case a: row = 0, col = number followed
                 case 'a':
                     row = 0;
-                    // grid point [row,col] = "X";
-                    Console.WriteLine('a');
+                    break;
+
+                case 'b':
+                    row = 1;
                     break;
 
                 default:
@@ -62,27 +64,55 @@ namespace Battleship_game
                     break;
             }
 
-            gridData[row, col] = "X";
-
-            drawGameCanvas();
+            gridData[row, col-1] = "X";
         }
 
-        public void placingShipOnBoard()
+        public void placingShipOnBoard(int[] shipHead, int direction, int shipLength)
         {
-            Ship randomShip = new Ship();
 
-            int[] shipHead = randomShip.getShipHead();
-            int direction = randomShip.getShipDirection();
-
-            // direction 1 = horizontal / direction 2 = vertical
+            // direction 1 = horizontal
             if (direction == 1)
             {
                 // display boat on the board
+                for (int row = 0; row < gridData.GetLength(0); row++)
+                {
+                    // when roll = 7, this met if condition. need to -1 because it starts from index 0
+                    if (row == shipHead[0]-1)
+                    {
+                        for (int col = 0; col < gridData.GetLength(1); col++)
+                        {
+                            //when col = 4
+                            if (col == shipHead[1]-1)
+                            {
+                                //loop through 5 times with col++ 
+                                for (int length = 0; length < shipLength; col++,length++)
+                                {
+                                    gridData[row, col] = "B";
+                                }
+                                return;
+                            }
+                        }
+                    }               
+                }
             }
 
+            //direction 2 = vertical
             if (direction == 2)
             {
-                // display boat on the board
+                for (int row = 0; row < gridData.GetLength(0); row++)
+                {
+                    // when roll = 4, this met if condition. need to -1 because it starts from index 0
+                    if (row == shipHead[0] - 1)
+                    {
+                        for (int length = 0; length < shipLength; row++, length++)
+                        {
+                            int col = shipHead[1] - 1;
+                            gridData[row, col] = "B";
+                        }
+                        return;
+                        
+                    }
+                }
             }
 
         }
