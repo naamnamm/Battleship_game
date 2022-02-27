@@ -7,7 +7,7 @@ namespace Battleship_game
 {
     public class GameCanvas
     {
-        const int gridSize = 10;
+        public const int gridSize = 10;
         const int tableWidth = 40;
         const int width = (tableWidth - gridSize) / gridSize;
 
@@ -39,24 +39,55 @@ namespace Battleship_game
             { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" }
         };
 
-        public void checkForHit(string gridPoints)
+        public void checkForHit(string gridPoints, List<List<int>> shipCoordinates)
         {
 
             // convert gridpoints to indices (row, column)
-            int row = 0;
+            int col = 0;
             
-            int.TryParse(gridPoints.Substring(1), out int col);
+            int.TryParse(gridPoints.Substring(1), out int row);
 
             // switch case a, b, c
-            switch (gridPoints[0])
+            switch (char.ToLower(gridPoints[0]))
             {
-                // if case a: row = 0, col = number followed
                 case 'a':
-                    row = 0;
+                    col = 0;
                     break;
 
                 case 'b':
-                    row = 1;
+                    col = 1;
+                    break;
+
+                case 'c':
+                    col = 2;
+                    break;
+
+                case 'd':
+                    col = 3;
+                    break;
+
+                case 'e':
+                    col = 4;
+                    break;
+
+                case 'f':
+                    col = 5;
+                    break;
+
+                case 'g':
+                    col = 6;
+                    break;
+
+                case 'h':
+                    col = 7;
+                    break;
+
+                case 'i':
+                    col = 8;
+                    break;
+
+                case 'j':
+                    col = 9;
                     break;
 
                 default:
@@ -64,58 +95,64 @@ namespace Battleship_game
                     break;
             }
 
-            gridData[row, col-1] = "X";
+            //loop through ship coordinate to see if it is match.
+
+            //if hit, display "O".
+
+
+            //otherwise, display "X"
+            gridData[row-1, col] = "X";
         }
 
-        public void placingShipOnBoard(int[] shipHead, int direction, int shipLength)
-        {
+        //public void placingShipOnBoard(int[] shipHead, int direction, int shipLength)
+        //{
 
-            // direction 1 = horizontal
-            if (direction == 1)
-            {
-                // display boat on the board
-                for (int row = 0; row < gridData.GetLength(0); row++)
-                {
-                    // when roll = 7, this met if condition. need to -1 because it starts from index 0
-                    if (row == shipHead[0]-1)
-                    {
-                        for (int col = 0; col < gridData.GetLength(1); col++)
-                        {
-                            //when col = 4
-                            if (col == shipHead[1]-1)
-                            {
-                                //loop through 5 times with col++ 
-                                for (int length = 0; length < shipLength; col++,length++)
-                                {
-                                    gridData[row, col] = "B";
-                                }
-                                return;
-                            }
-                        }
-                    }               
-                }
-            }
+        //    // direction 1 = horizontal
+        //    if (direction == 1)
+        //    {
+        //        // display boat on the board
+        //        for (int row = 0; row < gridData.GetLength(0); row++)
+        //        {
+        //            // when roll = 7, this met if condition. need to -1 because it starts from index 0
+        //            if (row == shipHead[0]-1)
+        //            {
+        //                for (int col = 0; col < gridData.GetLength(1); col++)
+        //                {
+        //                    //when col = 4
+        //                    if (col == shipHead[1]-1)
+        //                    {
+        //                        //loop through 5 times with col++ 
+        //                        for (int length = 0; length < shipLength; col++,length++)
+        //                        {
+        //                            gridData[row, col] = "B";
+        //                        }
+        //                        return;
+        //                    }
+        //                }
+        //            }               
+        //        }
+        //    }
 
-            //direction 2 = vertical
-            if (direction == 2)
-            {
-                for (int row = 0; row < gridData.GetLength(0); row++)
-                {
-                    // when roll = 4, this met if condition. need to -1 because it starts from index 0
-                    if (row == shipHead[0] - 1)
-                    {
-                        for (int length = 0; length < shipLength; row++, length++)
-                        {
-                            int col = shipHead[1] - 1;
-                            gridData[row, col] = "B";
-                        }
-                        return;
+        //    //direction 2 = vertical
+        //    if (direction == 2)
+        //    {
+        //        for (int row = 0; row < gridData.GetLength(0); row++)
+        //        {
+        //            // when roll = 4, this met if condition. need to -1 because it starts from index 0
+        //            if (row == shipHead[0] - 1)
+        //            {
+        //                for (int length = 0; length < shipLength; row++, length++)
+        //                {
+        //                    int col = shipHead[1] - 1;
+        //                    gridData[row, col] = "B";
+        //                }
+        //                return;
                         
-                    }
-                }
-            }
+        //            }
+        //        }
+        //    }
 
-        }
+        //}
 
         public void drawGameCanvas()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -12,12 +13,8 @@ namespace Battleship_game
 
             GameCanvas gameCanvas = new GameCanvas();
 
-            //randomly place the ship
             Ship ship = new Ship();
-            int[] shipHead = ship.getShipHead();
-            int direction = ship.getShipDirection();
-            gameCanvas.placingShipOnBoard(shipHead, direction, ship.Length);
-
+            List<List<int>> shipCoordinates = ship.getShipCoordinates();
             
             do
             {
@@ -34,7 +31,7 @@ namespace Battleship_game
                 string userInput = inputValidation.validateInput(Console.ReadLine());
 
                 //4. check if the ship has been hit 
-                gameCanvas.checkForHit(userInput);
+                gameCanvas.checkForHit(userInput, shipCoordinates);
                 
                 player.Health--;
                 
@@ -74,3 +71,6 @@ namespace Battleship_game
 //        Console.WriteLine(ex.Message);
 //    }
 //}
+
+// set ship coordinates
+//gameCanvas.placingShipOnBoard(shipHead, direction, ship.Length);
