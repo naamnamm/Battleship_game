@@ -11,7 +11,7 @@ namespace Battleship_game
         {
             string validatedInput;
 
-            //check to see if input is valid
+            //check if input is valid
             string pattern = "^[a-j]([1-9]|0[1-9]|10)$";
             Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
             Match m = r.Match(argTextInput);

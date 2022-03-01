@@ -39,7 +39,7 @@ namespace Battleship_game
             { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" }
         };
 
-        public void checkForHit(string gridPoints, List<List<int>> shipCoordinates)
+        public bool checkForHit(string gridPoints, List<List<int>> shipCoordinates)
         {
 
             // convert gridpoints to indices (row, column)
@@ -96,18 +96,27 @@ namespace Battleship_game
                     break;
             }
 
+            //{
+            //    { 2,2},
+            //    { 2,3},
+            //    { 2,4},
+            //    { 2,5},
+            //    { 2,6}
+            //}
+
             //if hit, display "O". 
             for (int i = 0; i < shipCoordinates.Count; i++)
             {
                 if (shipCoordinates[i][0] == row && shipCoordinates[i][1] == col)
                 {
                     gridData[row, col] = "O";
-                    return;
+                    return true;
                 }           
             }
 
             //otherwise, display "X"
             gridData[row, col] = "X";
+            return false;
         }
 
         //public void placingShipOnBoard(int[] shipHead, int direction, int shipLength)

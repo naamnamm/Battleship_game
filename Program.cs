@@ -25,17 +25,45 @@ namespace Battleship_game
                 Console.WriteLine("Battleship lives remaining: {0}", ship.Lives);
                 Console.WriteLine("Please enter your next move (i.e. a2 or f8):");
 
-
-                //2. check if user input is valid
-                InputValidation inputValidation = new InputValidation();
-                string userInput = inputValidation.validateInput(Console.ReadLine());
+                bool isInputComplete = false;
+                string userInput = string.Empty;
+                while (!isInputComplete) 
+                {
+                    try
+                    {
+                        //2. check if user input is valid
+                        InputValidation inputValidation = new InputValidation();
+                        userInput = inputValidation.validateInput(Console.ReadLine());
+                        isInputComplete = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        Console.WriteLine(ex.Message);
+                    }
+                }
 
                 //3. check if the ship has been hit 
-                gameCanvas.checkForHit(userInput, shipCoordinates);
+                if (gameCanvas.checkForHit(userInput, shipCoordinates) == true)
+                {
+                    ship.Lives--;
+                };
                 
                 player.Health--;
                 
                 Console.Clear();
+
+                // need to check at the end of the game if user wins or loses.
+                //if (ship lives == 0 && player health > 0
+                // user wins
+                // Console.Clear();
+                // Console.WriteLine("You win!!!");
+
+                //if player.Health == 0 && ship.Lives > 0
+                // game over
+                // Console.Clear();
+                // Console.WriteLine("Game over!!!");
+
 
             } while (player.Health > 0 && ship.Lives > 0);
 
