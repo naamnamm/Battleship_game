@@ -46,8 +46,9 @@ namespace Battleship_game
             int col = 0;
             
             int.TryParse(gridPoints.Substring(1), out int row);
+            row = row - 1;
 
-            // switch case a, b, c
+            // convert col to index
             switch (char.ToLower(gridPoints[0]))
             {
                 case 'a':
@@ -95,13 +96,18 @@ namespace Battleship_game
                     break;
             }
 
-            //loop through ship coordinate to see if it is match.
-
-            //if hit, display "O".
-
+            //if hit, display "O". 
+            for (int i = 0; i < shipCoordinates.Count; i++)
+            {
+                if (shipCoordinates[i][0] == row && shipCoordinates[i][1] == col)
+                {
+                    gridData[row, col] = "O";
+                    return;
+                }           
+            }
 
             //otherwise, display "X"
-            gridData[row-1, col] = "X";
+            gridData[row, col] = "X";
         }
 
         //public void placingShipOnBoard(int[] shipHead, int direction, int shipLength)

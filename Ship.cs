@@ -19,7 +19,7 @@ namespace Battleship_game
             Lives = 5;
         }
 
-        public List<int> getShipHead()
+        private List<int> getShipHead()
         {
             //random [row,col]
 
@@ -44,7 +44,7 @@ namespace Battleship_game
 
         }
 
-        public int getShipDirection()
+        private int getShipDirection()
         {
             // shipHead[] = [row, col]
             List<int> shipHead = getShipHead();

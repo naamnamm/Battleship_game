@@ -26,11 +26,11 @@ namespace Battleship_game
                 Console.WriteLine("Please enter your next move (i.e. a2 or f8):");
 
 
-                //3. determine if user input is valid
+                //2. check if user input is valid
                 InputValidation inputValidation = new InputValidation();
                 string userInput = inputValidation.validateInput(Console.ReadLine());
 
-                //4. check if the ship has been hit 
+                //3. check if the ship has been hit 
                 gameCanvas.checkForHit(userInput, shipCoordinates);
                 
                 player.Health--;
