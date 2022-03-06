@@ -37,7 +37,7 @@ namespace Battleship_game
                 return;
             }
 
-            if (userInputs.Contains(userInput)) throw new ArgumentException("please enter valid input");
+            if (userInputs.Contains(userInput)) throw new ArgumentException("Repeated input, please enter your next move again");
 
             userInputs.Add(userInput);
 

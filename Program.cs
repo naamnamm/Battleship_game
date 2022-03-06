@@ -33,10 +33,8 @@ namespace Battleship_game
                 {
                     try
                     {
-                        //2. check if user input is valid
                         userInput = inputValidation.validateInput(Console.ReadLine());
 
-                        //2.1 check if user input is not repeated.
                         inputValidation.isUserInputRepeated(userInput);
 
                         isInputComplete = true;
@@ -49,33 +47,16 @@ namespace Battleship_game
                     }
                 }
 
-                //3. check if the ship has been hit 
                 if (gameCanvas.checkForHit(userInput, shipCoordinates) == true)
                 {
                     ship.Lives--;
                 };
                 
-                player.Health--;
+                player.Health--; 
 
-                var gameContinue = player.Health > 0 && ship.Lives > 0;
-                if (gameContinue)
-                {
-                    Console.Clear();
-                }
+                Console.Clear();
 
-                // To create check for winner function.
-                // Todo: need to mark X or O on the board game on round 10 as well.
-                var userWin = ship.Lives == 0 && player.Health > 0;
-                if (userWin) 
-                {
-                    Console.WriteLine("You win!!!");
-                }
-
-                var gameOver = player.Health == 0 && ship.Lives > 0;
-                if (gameOver)
-                {
-                    Console.WriteLine("Game over!!!");
-                }
+                gameCanvas.checkForWinner(ship.Lives, player.Health);
 
             } while (player.Health > 0 && ship.Lives > 0);
 

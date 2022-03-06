@@ -96,13 +96,6 @@ namespace Battleship_game
                     break;
             }
 
-            //{
-            //    { 2,2},
-            //    { 2,3},
-            //    { 2,4},
-            //    { 2,5},
-            //    { 2,6}
-            //}
 
             //if hit, display "O". 
             for (int i = 0; i < shipCoordinates.Count; i++)
@@ -192,7 +185,24 @@ namespace Battleship_game
             PrintLine();
         }
 
+        public void checkForWinner(int shipLives, int playerHealth)
+        {
+            var userWin = shipLives == 0 && playerHealth > 0;
+            if (userWin)
+            {
+                drawGameCanvas();
+                Console.WriteLine("You win!!!");
+            }
 
+            var gameOver = playerHealth == 0 && shipLives > 0;
+            if (gameOver)
+            {
+                drawGameCanvas();
+                Console.WriteLine("Game over!!!");
+            }
+
+            return;
+        }
         static void PrintLine()
         {
             Console.WriteLine(new string('-', tableWidth));
@@ -200,17 +210,5 @@ namespace Battleship_game
     }
 }
 
-//https://stackoverflow.com/questions/314466/generating-an-array-of-letters-in-the-alphabet/5271891
 
-//public string[,] gridData { get; set; } = {
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" },
-//    { "-", "-", "-", "-", "-", "-", "-", "-", "-", "-" }
-//};
+
