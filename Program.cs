@@ -15,7 +15,9 @@ namespace Battleship_game
 
             Ship ship = new Ship();
             List<List<int>> shipCoordinates = ship.getShipCoordinates();
-            
+
+            InputValidation inputValidation = new InputValidation();
+
             do
             {
                 //1. draw canvas
@@ -32,9 +34,13 @@ namespace Battleship_game
                     try
                     {
                         //2. check if user input is valid
-                        InputValidation inputValidation = new InputValidation();
                         userInput = inputValidation.validateInput(Console.ReadLine());
+
+                        //2.1 check if user input is not repeated.
+                        inputValidation.isUserInputRepeated(userInput);
+
                         isInputComplete = true;
+
                     }
                     catch (Exception ex)
                     {
@@ -50,20 +56,26 @@ namespace Battleship_game
                 };
                 
                 player.Health--;
-                
-                Console.Clear();
 
-                // need to check at the end of the game if user wins or loses.
-                //if (ship lives == 0 && player health > 0
-                // user wins
-                // Console.Clear();
-                // Console.WriteLine("You win!!!");
+                var gameContinue = player.Health > 0 && ship.Lives > 0;
+                if (gameContinue)
+                {
+                    Console.Clear();
+                }
 
-                //if player.Health == 0 && ship.Lives > 0
-                // game over
-                // Console.Clear();
-                // Console.WriteLine("Game over!!!");
+                // To create check for winner function.
+                // Todo: need to mark X or O on the board game on round 10 as well.
+                var userWin = ship.Lives == 0 && player.Health > 0;
+                if (userWin) 
+                {
+                    Console.WriteLine("You win!!!");
+                }
 
+                var gameOver = player.Health == 0 && ship.Lives > 0;
+                if (gameOver)
+                {
+                    Console.WriteLine("Game over!!!");
+                }
 
             } while (player.Health > 0 && ship.Lives > 0);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -7,6 +8,9 @@ namespace Battleship_game
 {
     public class InputValidation
     {
+
+        List<string> userInputs = new List<string>();
+    
         public string validateInput (string argTextInput)
         {
             string validatedInput;
@@ -22,6 +26,20 @@ namespace Battleship_game
             validatedInput = argTextInput;
 
             return validatedInput;
+
+        }
+
+        public void isUserInputRepeated(string userInput)
+        {
+            if (userInputs.Count() == 0)
+            {
+                userInputs.Add(userInput);
+                return;
+            }
+
+            if (userInputs.Contains(userInput)) throw new ArgumentException("please enter valid input");
+
+            userInputs.Add(userInput);
 
         }
     }

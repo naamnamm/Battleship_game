@@ -6,7 +6,7 @@ namespace Battleship_game
 {
     class Ship
     {
-        public int Length { get; }
+        int _length = 5;
         public int Lives { get; set; }
 
         private readonly List<List<int>> _coordinates = new List<List<int>>();
@@ -15,7 +15,6 @@ namespace Battleship_game
 
         public Ship()
         {
-            Length = 5;
             Lives = 5;
         }
 
@@ -86,7 +85,7 @@ namespace Battleship_game
 
             if (direction == 1) // horizontal
             {
-                for (int length = 0; length < Length; col++, length++)
+                for (int length = 0; length < _length; col++, length++)
                 {
                     _coordinates.Add(new List<int> { row, col });               
                 }
@@ -96,7 +95,7 @@ namespace Battleship_game
 
             if (direction == 2) // vertical
             {
-                for (int length = 0; length < Length; row++, length++)
+                for (int length = 0; length < _length; row++, length++)
                 {
                     _coordinates.Add(new List<int> { row, col });
                 }
