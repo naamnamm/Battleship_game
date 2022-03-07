@@ -16,11 +16,11 @@ namespace Battleship_game
             Ship ship = new Ship();
             List<List<int>> shipCoordinates = ship.getShipCoordinates();
 
+
             InputValidation inputValidation = new InputValidation();
 
             do
             {
-                //1. draw canvas
                 gameCanvas.drawGameCanvas();
 
                 Console.WriteLine("User turn remaining: {0}", player.Health);
@@ -65,33 +65,3 @@ namespace Battleship_game
 }
 
 
-//bool isInputComplete = false;
-//while (!isInputComplete) //while this is true
-//{
-//    try
-//    {
-//        //get user input && determine if the input is valid
-//        InputValidation inputConverter = new InputValidation();
-//        string userInput = inputConverter.validateInput(Console.ReadLine());
-
-//        isInputComplete = true;
-
-//        // call the checkHit fn
-//        gameCanvas.checkForHit(userInput);
-//        // call the render grid fn
-
-
-
-//        //user input --1
-//        player.Health--;
-
-//    }
-//    catch (Exception ex)
-//    {
-//        Console.WriteLine(ex);
-//        Console.WriteLine(ex.Message);
-//    }
-//}
-
-// set ship coordinates
-//gameCanvas.placingShipOnBoard(shipHead, direction, ship.Length);
