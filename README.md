@@ -5,7 +5,7 @@ A console app written in C#.
 <img src="https://user-images.githubusercontent.com/53867191/157230971-bbf8f2cf-cc3c-428f-bf25-ae55144b7a55.png" />
 
 ## Instructions/Game Flow
-1) The ship with 5-unit long are randomly placed in the 10x10 game grid.
+1) A ship with 5-unit long is randomly placed on the 10x10 game grid.
 2) The user has 10 lives to guess where a ship is.
 3) If the ship is hit, "X" will appear on the grid. Otherwise, "O" will appear.
 4) If the user has sunk all the 5 units of the ship, user wins. Otherwise game over.
